@@ -206,6 +206,18 @@ interface Collection extends Countable, IteratorAggregate, ArrayAccess
     public function filter(Closure $p);
 
     /**
+     * Returns first element matching predicate p.
+     * In case no element found - return result of d.
+     *
+     * @param callable $p The predicate used for finding.
+     * @param callable $d The closure to be executed in case no element found. Its result is
+     *                    considered a default value.
+     *
+     * @return mixed
+     */
+    public function find(Closure $p, Closure $d = null);
+
+    /**
      * Tests whether the given predicate p holds for all elements of this collection.
      *
      * @param Closure $p The predicate.

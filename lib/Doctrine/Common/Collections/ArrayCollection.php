@@ -298,6 +298,23 @@ class ArrayCollection implements Collection, Selectable
     /**
      * {@inheritDoc}
      */
+    public function find(Closure $p, Closure $d = null)
+    {
+        if ($d === null) {
+            $d = function () { return null; };
+        }
+
+        $filtered = $this->filter($p);
+        if ($filtered->count()) {
+            return $filtered->first();
+        }
+
+        return $d();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function forAll(Closure $p)
     {
         foreach ($this->elements as $key => $element) {

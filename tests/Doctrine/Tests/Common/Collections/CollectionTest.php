@@ -65,6 +65,16 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(0 => 1, 2 => 3), $res->toArray());
     }
 
+    public function testFind()
+    {
+        $this->collection->add('a');
+        $this->collection->add('b');
+
+        $this->assertEquals('b', $this->collection->find(function ($el) { return $el == 'b'; }));
+        $this->assertNull($this->collection->find(function ($el) { return $el == 'c'; }));
+        $this->assertEquals('c', $this->collection->find(function ($el) { return $el == 'c'; }, function () { return 'c'; }));
+    }
+
     public function testFirstAndLast()
     {
         $this->collection->add('one');
